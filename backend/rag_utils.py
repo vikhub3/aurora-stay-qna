@@ -1,9 +1,8 @@
-
 from langchain_openai import ChatOpenAI
 import os
 
 # Retrieve the top-k relevant chunks from the vector store
-def retrieve(query: str, k: int = 2,vectorstore=None) -> list[str]:
+def retrieve(query: str, k: int = 2, vectorstore=None) -> list[str]:
     results = vectorstore.similarity_search(query, k=k)
 
     # Return each chunk with its content and metadata
@@ -14,27 +13,29 @@ def retrieve(query: str, k: int = 2,vectorstore=None) -> list[str]:
 
 # Define the generation function that prompts the LLM with retrieved context
 def generate(query, retrieved_chunks, model) -> str:
-    # Use single quotes for the multiline prompt to avoid clashing with triple quotes
-    prompt = (
-        "You are an AI assistant for AuroraStay Hotels answering questions about booking terms, "
-        "property information, refunds, cancellations, and guest conduct guidelines.\n\n"
-        f"User Query:\n{query}\n\n"
-        f"Retrieved Policy Information:\n{retrieved_chunks}\n\n"
-        "Rules:\n"
-        "1. Use only information explicitly supported by the retrieved policy information.\n"
-        "2. Do not use outside knowledge, assumptions, or information not present in the retrieved policy information.\n"
-        "3. Include all relevant information needed to answer the query completely.\n"
-        "4. Do not omit important conditions, exclusions, limitations, exceptions, or coverage details.\n"
-        "5. Focus only on information directly relevant to the user's query.\n"
-        "6. Do not include unrelated information from the retrieved policy information.\n"
-        "7. Answer the user's specific question directly and ensure the response addresses what was asked.\n"
-        "8. Keep the answer concise, clear, and easy to understand.\n"
-        "9. Do not invent benefits, exclusions, limits, waiting periods, conditions, or coverage details.\n"
-        "10. If the information is insufficient, say:\n"
-        "    "The available policy documents do not contain enough information to answer this question."\n"
-        "    If the retrieved information conflicts, clearly mention the conflict.\n\n"
-        "Answer:\n"
-    )
+    prompt = f"""You are an AI assistant answering questions about AuroraStay hotel policies.
+
+User Query:
+{query}
+
+Retrieved Policy Information:
+{retrieved_chunks}
+
+Rules:
+1. Provide a direct, highly detailed, and complete answer based on the retrieved policy information.
+    2. Do not restrict the response to a single sentence; use multiple sentences, bullet points, or structured lists to ensure the response is clear, accurate, and completely addresses all parts of the user query.
+    3. Tables are represented with pipes (|). Read headers to locate matching values.
+    4. Use only information explicitly supported by the retrieved policy information.
+    5. Do not use outside knowledge, assumptions, or information not present in the retrieved policy information.
+    6. Include all relevant information needed to answer the query completely (such as specific fees, conditions, policy codes, names of properties, exceptions, etc.).
+    7. Focus only on information directly relevant to the user's query.
+    8. Answer the user's specific question directly and ensure the response addresses what was asked.
+    9. Do not invent benefits, exclusions, limits, waiting periods, conditions, or policy details.
+    10. If the retrieved information does not contain enough details to confidently answer the query, clearly state:
+        "The available policy documents do not contain enough information to answer this question."
+"
+
+Answer:"""
     return model.invoke(prompt)
 
 # Define the full RAG pipeline combining retrieval and generation
@@ -44,17 +45,16 @@ def rag(
     model_name: str = "gpt-4o-mini",
     temperature: float = 0.0,
     top_p: float = 1.0,
-    max_tokens: int = 512,
+    max_tokens: int = 400,
     vectorstore=None
 ):
     # Create the generator model
     model = ChatOpenAI(
-        model=model_name,
+        model_name=model_name,
         temperature=temperature,
         top_p=top_p,
         max_tokens=max_tokens,
-        openai_api_key=os.getenv("OPENAI_API_KEY"),
-        openai_api_base=os.getenv("OPENAI_API_BASE")
+        api_key=MY_API_KEY,
     )
 
     # Retrieve relevant chunks
