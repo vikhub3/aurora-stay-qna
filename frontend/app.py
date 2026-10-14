@@ -1,14 +1,11 @@
-
 import streamlit as st
 import requests
-
 
 # ---------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------
 
 BACKEND_URL = "http://localhost:7860"
-
 
 # ---------------------------------------------------------
 # Page configuration
@@ -19,7 +16,6 @@ st.set_page_config(
     page_icon="🏨",
     layout="wide"
 )
-
 
 # ---------------------------------------------------------
 # Sidebar  -  Model parameters
@@ -33,7 +29,7 @@ with st.sidebar:
         "k (chunks to retrieve)",
         min_value=1,
         max_value=10,
-        value=2,
+        value=5,
         help="Number of relevant chunks fetched from the vector store."
     )
 
@@ -50,11 +46,10 @@ with st.sidebar:
         "Max tokens",
         min_value=64,
         max_value=2048,
-        value=512,
+        value=400,
         step=64,
         help="Maximum number of tokens in the generated answer."
     )
-
 
 # ---------------------------------------------------------
 # Main area
@@ -62,7 +57,6 @@ with st.sidebar:
 
 st.title("🏨 Aurora Stays")
 st.write("Ask a question about Aurora Stays policies.")
-
 
 # ---------------------------------------------------------
 # Response type selection (two options only)
@@ -74,16 +68,14 @@ response_type = st.radio(
     horizontal=True
 )
 
-
 # ---------------------------------------------------------
 # Query input
 # ---------------------------------------------------------
 
 query = st.text_input(
     "Your question",
-    placeholder="e.g., What is the waiting period for hospitalization?"
+    placeholder="e.g., What are the pet charges and rules at ASH-CHI Loop?"
 )
-
 
 # ---------------------------------------------------------
 # Submit
