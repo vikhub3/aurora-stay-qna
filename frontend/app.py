@@ -46,7 +46,7 @@ with st.sidebar:
         "Max tokens",
         min_value=64,
         max_value=2048,
-        value=400,
+        value=120,
         step=64,
         help="Maximum number of tokens in the generated answer."
     )
