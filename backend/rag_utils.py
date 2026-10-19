@@ -23,19 +23,17 @@ Retrieved Policy Information:
 
 Rules:
 1. Provide a direct, highly detailed, and complete answer based on the retrieved policy information.
-    2. Do not restrict the response to a single sentence; use multiple sentences, bullet points, or structured lists to ensure the response is clear, accurate, and completely addresses all parts of the user query.
-    3. Tables are represented with pipes (|). Read headers to locate matching values.
-    4. Use only information explicitly supported by the retrieved policy information.
-    5. Do not use outside knowledge, assumptions, or information not present in the retrieved policy information.
-    6. Include all relevant information needed to answer the query completely (such as specific fees, conditions, policy codes, names of properties, exceptions, etc.).
-    7. Focus only on information directly relevant to the user's query.
-    8. Answer the user's specific question directly and ensure the response addresses what was asked.
-    9. Do not invent benefits, exclusions, limits, waiting periods, conditions, or policy details.
-    10. If the retrieved information does not contain enough details to confidently answer the query, clearly state:
-        "The available policy documents do not contain enough information to answer this question."
-"
-
-Answer:"""
+2. Do not restrict the response to a single sentence; use multiple sentences, bullet points, or structured lists to ensure the response is clear, accurate, and completely addresses all parts of the user query.
+3. Tables are represented with pipes (|). Read headers to locate matching values.
+4. Use only information explicitly supported by the retrieved policy information.
+5. Do not use outside knowledge, assumptions, or information not present in the retrieved policy information.
+6. Include all relevant information needed to answer the query completely (such as specific fees, conditions, policy codes, names of properties, exceptions, etc.).
+7. Focus only on information directly relevant to the user's query.
+8. Answer the user's specific question directly and ensure the response addresses what was asked.
+9. Do not invent benefits, exclusions, limits, waiting periods, conditions, or policy details.
+10. If the retrieved information does not contain enough details to confidently answer the query, clearly state:
+    "The available policy documents do not contain enough information to answer this question."
+"""
     return model.invoke(prompt)
 
 # Define the full RAG pipeline combining retrieval and generation
@@ -54,7 +52,7 @@ def rag(
         temperature=temperature,
         top_p=top_p,
         max_tokens=max_tokens,
-        api_key=MY_API_KEY,
+        api_key=os.getenv("OPENAI_API_KEY"),
     )
 
     # Retrieve relevant chunks
