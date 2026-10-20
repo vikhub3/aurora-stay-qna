@@ -43,7 +43,7 @@ def rag(
     model_name: str = "gpt-4o-mini",
     temperature: float = 0.0,
     top_p: float = 1.0,
-    max_tokens: int = 120,
+    max_tokens: int = 126,
     vectorstore=None
 ):
     # Create the generator model
@@ -52,7 +52,7 @@ def rag(
         temperature=temperature,
         top_p=top_p,
         max_tokens=max_tokens,
-        api_key=os.getenv("OPENAI_API_KEY"),
+        api_key=MY_API_KEY,
     )
 
     # Retrieve relevant chunks
