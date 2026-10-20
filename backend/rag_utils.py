@@ -46,13 +46,13 @@ def rag(
     max_tokens: int = 126,
     vectorstore=None
 ):
-    # Create the generator model
+    # Create the generator model using the securely injected OpenAI API Key
     model = ChatOpenAI(
         model_name=model_name,
         temperature=temperature,
         top_p=top_p,
         max_tokens=max_tokens,
-        api_key=MY_API_KEY,
+        api_key=os.getenv("OPENAI_API_KEY"),
     )
 
     # Retrieve relevant chunks
