@@ -119,7 +119,7 @@ def answer_with_relevant_chunks():
         "model_name": "gpt-4o-mini",
         "temperature": 0.0,
         "top_p": 1.0,
-        "max_tokens": 125
+        "max_tokens": 512
     }
 
     Returns both the generated answer and the relevant
@@ -135,7 +135,7 @@ def answer_with_relevant_chunks():
     model_name = data.get("model_name", "gpt-4o-mini")
     temperature = data.get("temperature", 0.0)
     top_p = data.get("top_p", 1.0)
-    max_tokens = data.get("max_tokens", 125)
+    max_tokens = data.get("max_tokens", 512)
 
     # Run the complete RAG pipeline
     answer, chunks = rag(
