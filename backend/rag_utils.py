@@ -43,7 +43,7 @@ def rag(
     model_name: str = "gpt-4o-mini",
     temperature: float = 0.0,
     top_p: float = 1.0,
-    max_tokens: int = 125,
+    max_tokens: int = 512,
     vectorstore=None
 ):
     # Create the generator model using the securely injected OpenAI API Key via environment variables
