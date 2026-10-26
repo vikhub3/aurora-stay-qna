@@ -1,6 +1,5 @@
 
 # Import necessary libraries
-import os
 from flask import Flask, request, jsonify
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -14,9 +13,7 @@ from rag_utils import retrieve, rag
 # ---------------------------------------------------------
 
 EMBED_MODEL = "HarishMaths/Hotel-Policy-Embedding"
-# Resolve the absolute path to faiss_index dynamically
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-VECTORSTORE_PATH = os.path.join(BASE_DIR, "faiss_index")
+VECTORSTORE_PATH = "faiss_index"
 
 
 # ---------------------------------------------------------
@@ -177,7 +174,8 @@ def answer():
         "model_name": "gpt-4o-mini",
         "temperature": 0.0,
         "top_p": 1.0,
-        "max_tokens": 512    }
+        "max_tokens": 512
+    }
 
     Returns only the generated answer.
     """
