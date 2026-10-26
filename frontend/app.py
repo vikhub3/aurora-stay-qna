@@ -1,4 +1,4 @@
-
+import os
 import streamlit as st
 import requests
 
@@ -7,7 +7,7 @@ import requests
 # Configuration
 # ---------------------------------------------------------
 
-BACKEND_URL = "http://localhost:7860"
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:7860")
 
 
 # ---------------------------------------------------------
