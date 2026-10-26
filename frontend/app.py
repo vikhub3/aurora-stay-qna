@@ -1,11 +1,14 @@
+
 import streamlit as st
 import requests
+
 
 # ---------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------
 
 BACKEND_URL = "http://localhost:7860"
+
 
 # ---------------------------------------------------------
 # Page configuration
@@ -16,6 +19,7 @@ st.set_page_config(
     page_icon="🏨",
     layout="wide"
 )
+
 
 # ---------------------------------------------------------
 # Sidebar  -  Model parameters
@@ -51,12 +55,14 @@ with st.sidebar:
         help="Maximum number of tokens in the generated answer."
     )
 
+
 # ---------------------------------------------------------
 # Main area
 # ---------------------------------------------------------
 
 st.title("🏨 Aurora Stays")
 st.write("Ask a question about Aurora Stays policies.")
+
 
 # ---------------------------------------------------------
 # Response type selection (two options only)
@@ -68,14 +74,16 @@ response_type = st.radio(
     horizontal=True
 )
 
+
 # ---------------------------------------------------------
 # Query input
 # ---------------------------------------------------------
 
 query = st.text_input(
     "Your question",
-    placeholder="e.g., What are the pet charges and rules at ASH-CHI Loop?"
+    placeholder="e.g., What is the waiting period for hospitalization?"
 )
+
 
 # ---------------------------------------------------------
 # Submit
